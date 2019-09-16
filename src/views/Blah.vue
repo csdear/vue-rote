@@ -1,5 +1,8 @@
+<!--SINGLE FILE COMPONENT -->
 <template>
-  <p>{{ greeting }} World!</p>
+<div class="blah">
+  <h1>{{ greeting }} World!</h1>
+</div>
 </template>
 
  
@@ -8,13 +11,14 @@
 //bringing in external scripts
 import heyScript from "@/components/hey.js";
 
-module.exports = {
-  data: function () {
+export default {
+  data () {
     return {
-      greeting: 'Hello'
+      greeting: 'Hello Friend BLAH'
     }
   }
-}
+};
+
 </script>
 
 <style scoped>
