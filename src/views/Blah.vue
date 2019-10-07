@@ -17,6 +17,7 @@
   <p> Welcome to the party {{ name }}</p><br>
   <!--expression-->
   <p><span v-text="'So glad to have you, ' + name + ', with us today!'"> </span></p>
+  
 
   <p> Whats does wikipedia says about 
     <a v-bind:href="'https://en.wikipedia.org/wiki/' + name ">your name</a>
@@ -31,6 +32,9 @@
       <option>Joseph</option>
   </select>
   <span>Friend chosen: {{ selected }}</span>
+  <!--expression:ternary operator-->
+  <!-- <span v-text="name == Flavio ? 'Hi Flavio!' : 'Hi' + name + '!'"></span> -->
+  <span v-text="selected == 'Joseph' ? 'Hello my friend and son, Joseph' : 'Hi' + name + '!'"></span>
   <br>
     <!--Bootstrap Mult Select Checkboxes -->
                   <b-dropdown ref="eatDropDown" id="dropdown-eat" text="Search Sub Categories" variant="primary">
@@ -49,8 +53,27 @@
                     </b-dropdown-form>
                     <h3>User selection(s) : {{ eatSubList }} </h3>
                 </b-dropdown>
+  <div id="loops">
+    <h3>v-for loop</h3>
+    <ul>
+        <li v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
+      </ul>
+    <h3>v-for loop w/ index</h3>
+    <ul>
+      <li v-for="(todo, index) in todos" v-text="todo.title" :key="index" ></li>
+    </ul>
+
+    </div>
+
+  <div id="events">
+      <p><b-button><a v-on:click="handleClick('testABC')">Click me!</a></b-button></p>
+      <p><b-button><a v-on:click="handleClick(selected)">who is selected friend?</a></b-button></p>
+  </div>
+
 
 </div>
+
+
 </template>
 
 
@@ -69,11 +92,20 @@ export default {
       name: "",
       selected: "",
        eatSubList: [],
+      todos: [
+        { id: 1, title: 'Do something' },
+        { id: 2, title: 'Do something else' }
+      ],
     }
+  },
+  methods: {
+    handleClick: function(value) {
+      alert(value)
+    },
   },
   components: {
     HolaMundo
-  }
+  },
 };
 
 </script>
