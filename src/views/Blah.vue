@@ -67,9 +67,19 @@
 
   <div id="events">
       <p><b-button><a v-on:click="handleClick('testABC')">Click me!</a></b-button></p>
+      <p><b-button><a @click="handleClick('testABC')">Click me shorty</a></b-button></p> <!--shorter syntax-->
       <p><b-button><a v-on:click="handleClick(selected)">who is selected friend?</a></b-button></p>
+      <p><b-button><a @click="handleClickEvent($event)">Click me $event</a></b-button></p>
   </div>
+  <p>Only show the following if true, with v-show</p>
+  <p v-show="showMe">Some Element</p>
 
+  <h1>Watchers</h1>
+  <p>My name is {{name}}</p>
+  <p><b-button @click="changeName()">Change My name!</b-button></p>
+
+  <h1>Computer Properties</h1>
+  <p> {{ count }} </p>
 
 </div>
 
@@ -87,25 +97,47 @@ import HolaMundo from "@/components/HolaMundo.vue";
 export default {
   data () {
     return {
+      name: 'Stuart',
       greeting: 'Basic interpolation',
       greetingAlt: 'v text directive',
-      name: "",
+      showMe: true,
       selected: "",
        eatSubList: [],
       todos: [
         { id: 1, title: 'Do something' },
         { id: 2, title: 'Do something else' }
       ],
+      items: [1, 2, 3],
+    }
+  },
+  computed: { 
+    count: function() {
+        return 'The count is ' + this.items.length * 10
     }
   },
   methods: {
     handleClick: function(value) {
       alert(value)
     },
+    handleClickEvent: function(event) {
+      console.log(event)
+    },
+    changeName: function() {
+      this.name = 'Wizard X'
+    },
+  },
+  watch: {
+    // name: function() {
+    //   console.log(this.name)
+    //   },
+    name: function(newValue, oldValue) {
+      console.log("New Value :" + newValue + " Old Value: " + oldValue)
+      console.log(`New value ${newValue}, Old Value ${oldValue}.`)
+      },      
   },
   components: {
     HolaMundo
-  },
+  }
 };
 
 </script>
