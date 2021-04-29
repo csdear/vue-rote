@@ -28,6 +28,12 @@ export default new Router({
       name: "blah",
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/Blah.vue")
-    }
+    },
+    {
+      path: "/Forms",
+      name: "forms",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Forms.vue")
+    },
   ]
 });

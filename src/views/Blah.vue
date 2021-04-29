@@ -3,23 +3,23 @@
 <div class="blah">
 
   <!-- A. basic interpolation, populated by this data obj -->
-  <h1>{{ greeting }} World!</h1>
-  
+  <h1>{{ greeting }} (same lvl interpolation)</h1>
+
   <!-- B. v-text alternative to interpolation, pop by this data obj.-->
   <HolaMundo v-text="greetingAlt" />
-  
+
   <!-- Passing a prop to HolaMundo subcompt. -->
-  <HolaMundo msg="Welcome" />
+  <HolaMundo msg="Welcome (inline prop msg to SC" />
   <br>
-  
+
   <h2>v-model directive</h2>
   <input v-model="name" placeholder="Your name">
   <p> Welcome to the party {{ name }}</p><br>
   <!--expression-->
   <p><span v-text="'So glad to have you, ' + name + ', with us today!'"> </span></p>
-  
 
-  <p> Whats does wikipedia says about 
+
+  <p> Whats does wikipedia says about
     <a v-bind:href="'https://en.wikipedia.org/wiki/' + name ">your name</a>
   ?</p>
 <br>
@@ -71,6 +71,26 @@
       <p><b-button><a v-on:click="handleClick(selected)">who is selected friend?</a></b-button></p>
       <p><b-button><a @click="handleClickEvent($event)">Click me $event</a></b-button></p>
   </div>
+
+  <div>
+  <h2>Btns, one handler, evt.target</h2>
+          <button @click="onButtonClick"
+            name="button-hoodie"
+            value="fullstack-hoodie"
+            class="ui button">Hoodie</button>
+          <button @click="onButtonClick"
+            name="button-tee"
+            value="fullstack-tee"
+            class="ui button">Tee</button>
+          <button @click="onButtonClick"
+            name="button-fitted-cap"
+            value="fullstack-fitted-cap"
+            class="ui button">Fitted Cap</button>
+          <button @click="onButtonClick"
+            name="button-jacket"
+            value="fullstack-jacket"
+            class="ui button">Jacket</button>
+        </div>
   <p>Only show the following if true, with v-show</p>
   <p v-show="showMe">Some Element</p>
 
@@ -78,7 +98,7 @@
   <p>My name is {{name}}</p>
   <p><b-button @click="changeName()">Change My name!</b-button></p>
 
-  <h1>Computer Properties</h1>
+  <h1>Computed Properties</h1>
   <p> {{ count }} </p>
 
 </div>
@@ -98,8 +118,8 @@ export default {
   data () {
     return {
       name: 'Stuart',
-      greeting: 'Basic interpolation',
-      greetingAlt: 'v text directive',
+      greeting: 'Basic greeting',
+      greetingAlt: 'greeting  alt',
       showMe: true,
       selected: "",
        eatSubList: [],
@@ -110,7 +130,7 @@ export default {
       items: [1, 2, 3],
     }
   },
-  computed: { 
+  computed: {
     count: function() {
         return 'The count is ' + this.items.length * 10
     }
@@ -125,15 +145,20 @@ export default {
     changeName: function() {
       this.name = 'Wizard X'
     },
+    onButtonClick(evt) {
+      const button = evt.target;  // <-- EVT TARGET.
+      console.log(`The user clicked ${button.name}: ${button.value}`);
+    },
   },
   watch: {
     // name: function() {
     //   console.log(this.name)
     //   },
     name: function(newValue, oldValue) {
+      alert('change occured to the prop');
       console.log("New Value :" + newValue + " Old Value: " + oldValue)
       console.log(`New value ${newValue}, Old Value ${oldValue}.`)
-      },      
+      },
   },
   components: {
     HolaMundo
