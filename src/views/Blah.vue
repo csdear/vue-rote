@@ -19,7 +19,7 @@
   <p><span v-text="'So glad to have you, ' + name + ', with us today!'"> </span></p>
 
 
-  <p> Whats does wikipedia says about
+  <p> What does wikipedia says about (v-bind to html attribute)
     <a v-bind:href="'https://en.wikipedia.org/wiki/' + name ">your name</a>
   ?</p>
 <br>
@@ -91,8 +91,7 @@
             value="fullstack-jacket"
             class="ui button">Jacket</button>
         </div>
-  <p>Only show the following if true, with v-show</p>
-  <p v-show="showMe">Some Element</p>
+
 
   <h1>Watchers</h1>
   <p>My name is {{name}}</p>
@@ -100,6 +99,23 @@
 
   <h1>Computed Properties</h1>
   <p> {{ count }} </p>
+
+  <hr>
+  <h2 v-show="showElement">v-show. Only show the following if true</h2>
+  <p v-show="showMe">Shown cuz im true</p>
+
+
+  <h2>v-show as a div with v-if</h2>
+    <div v-if="showElement">
+    <ol>
+      <li>Vishwas</li>
+      <li>Codevolution</li>
+      <li>Vue 3</li>
+    </ol>
+  </div>
+  <hr>
+
+
 
 </div>
 
@@ -128,6 +144,7 @@ export default {
         { id: 2, title: 'Do something else' }
       ],
       items: [1, 2, 3],
+      showElement: true
     }
   },
   computed: {
@@ -169,7 +186,10 @@ export default {
 
 <style scoped>
 p {
-  font-size: 2em;
+  /*font-size: 2em;*/
+  font-style: italic;
   text-align: center;
 }
+
+
 </style>

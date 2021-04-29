@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
+    <b-button variant="success">Hello Bootstrap-vue</b-button>
     <HelloWorld msg="WIZARD X VUE Prop" />
   </div>
 </template>
