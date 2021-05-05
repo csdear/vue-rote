@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <p>{{ msg }}</p>
+    <hr>
+    <h1>HelloWorld Child Component</h1>
     <!--JS global object access-->
     <h2>{{ Math.sqrt(16) * Math.random() }}</h2>
     <h2>{{ Date() }}</h2>
@@ -11,8 +13,8 @@
         >vue-cli documentation</a
       >.
     </p>
-    <p style="text-decoration: underline">Test inline style</p>
-    <p>Pellentesque suscipit maximus purus, in aliquet nibh mollis vel. <span style="text-decoration: underline">Nulla dictum posuere varius.</span> Nullam condimentum <br> risus sit amet elit commodo congue. Duis sit amet diam orci. Integer nec aliquam libero.</P> 
+    <p style="text-decoration: underline">Normal inline style</p>
+    <p>Pellentesque suscipit maximus purus, in aliquet nibh mollis vel. <span style="text-decoration: underline">Nulla dictum posuere varius.</span> Nullam condimentum <br> risus sit amet elit commodo congue. Duis sit amet diam orci. Integer nec aliquam libero.</P>
     <!-- Xor. Styling Vue components -->
     <p :style="{'color': textColor}">v-bind style example to data compt object</p>
     <p :style="mystyle">v-bind style example to a computed property</p>
@@ -130,7 +132,7 @@ export default {
     mystyle: function() {
       return {
         textDecoration: this.textDecoration,
-        textWeight: this.textWeight, 
+        textWeight: this.textWeight,
       }
     },
     paragraphClasses: function() {
@@ -146,26 +148,29 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
+<style scoped >
 
-.ogreClass { 
-  color: green; 
+div {
+  background-color: rgb(174, 241, 200);
+}
+.ogreClass {
+  color: green;
 }
 
-.ogreBold { 
-  font-weight: bold; 
+.ogreBold {
+  font-weight: bold;
 }
 
-.underline { 
-  text-decoration: underline; 
+.underline {
+  text-decoration: underline;
 }
 
-.bold { 
-  font-weight: bold; 
+.bold {
+  font-weight: bold;
 }
 
-.imRed { 
-  color: red; 
+.imRed {
+  color: red;
 }
 
 h3 {
