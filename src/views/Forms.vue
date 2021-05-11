@@ -127,27 +127,84 @@
         </div>
     <hr>
     <h2 class="ui header">Fullstack CLothing inquery sheet</h2>
-    <div class="input-form">
+    <!-- devo input field to list only.
+    <!-- <div class="input-form">
         <form @submit="submitFormFSVUE" class="ui form">
-            <div class="field">
+            <div class="field"> -->
                 <!-- 1. only to demonstrate a ref bound to an input element -->
                 <!-- <input ref="newItem" type="text" placeholder="Add an Item"> -->
-                <input v-model="newItem" type="text" placeholder="Add an Item">
+                <!-- <input v-model="newItem" type="text" placeholder="Add an Item">
             </div>
             <button class="ui button">Submit</button>
         </form>
         <div class="container bg-dark text-white p-3 m-3">
             <h4>Items</h4>
-                <ul>
-                    <!--bullshit error -->
+                <ul> -->
+                    <!--bullshit error : "Elements in iteration expect to have 'v-bind:key' directive" -->
                     <!--<li v-for="item in items" class="item">{{ item }}</li> -->
-                    <li v-for="(item, index) in items" :key="index" class="item">{{ item }}</li>
+                    <!-- <li v-for="(item, index) in items" :key="index" class="item">{{ item }}</li>
                 </ul>
         </div>
+    </div> -->
+    <div class="input-form">
+      <form @submit="submitFormFSVUE" class="ui form">
+        <div class="field">
+          <label>New Item</label>
+          <input v-model="fields.newItem" type="text"
+            placeholder="Add an item!" />
+            <!--2.1[fsvue] realtime/inline validation. computed, conditionnal-display error messages -->
+            <span style="float: right">{{ fields.newItem.length }}/20</span>
+            <span style="color: red">{{ fieldErrors.newItem }}</span>
+                <span style="color: red">{{ fieldErrors.newItem }}</span>
+                <!-- if true, display -->
+                <span v-if="isNewItemInputLimitExceeded"
+                style="color: red; display: block">
+                Must be under twenty characters
+            </span>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input v-model="fields.email" type="text"
+            placeholder="What's your email?" />
+             <span style="color: red">{{ fieldErrors.email }}</span>
+        </div>
+        <div class="field">
+          <label>Urgency</label>
+          <select v-model="fields.urgency" class="ui fluid search dropdown">
+            <option disabled value="">Please select one</option>
+            <option>Nonessential</option>
+            <option>Moderate</option>
+            <option>Urgent</option>
+          </select>
+          <span style="color: red">{{ fieldErrors.urgency }}</span>
+          <!--[fsvue}2.2 realtime/inline validation on drop-down select -->
+          <span v-if="isNotUrgent"
+            style="color: red; display: block">
+            Must be moderate to urgent
+          </span>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input v-model="fields.termsAndConditions" type="checkbox" />
+            <label>I accept the terms and conditions</label>
+            <span style="color: red">{{ fieldErrors.termsAndConditions }}</span>
+          </div>
+        </div>
+        <!--[fsvue]2.3 prevent submit on error, set button disabled prop tor return
+        value of our computed values -->
+        <button :disabled="isNewItemInputLimitExceeded || isNotUrgent"
+          class="ui button">
+          Submit
+        </button>
+      </form>
+      <div class="ui segment">
+        <h4 class="ui header">Items</h4>
+        <ul>
+          <li v-for="(item, index) in items" :key="index" class="item">{{ item }}</li>
+        </ul>
+      </div>
     </div>
-
-    </div>
-
+</div>
 
 
 
@@ -161,18 +218,38 @@
                 //REF : gopinav : https://github.com/gopinav/Vue-3-Tutorials/blob/33090e007fb30e940486c130c85052fadb8c17d5/vue-fundamentals/src/App.vue
                 title: 'Forms',
                 formValues: {
-                name: '',
-                profileSummary: '',
-                country: '',
-                jobLocation: [],
-                remoteWork: 'no',
-                skillSet: [],
-                yearsOfExperience: '',
-                age: null,
+                    name: '',
+                    profileSummary: '',
+                    country: '',
+                    jobLocation: [],
+                    remoteWork: 'no',
+                    skillSet: [],
+                    yearsOfExperience: '',
+                    age: null,
                 },
-              newItem: '',
-              items: []
+              fields: {
+                newItem: '',
+                email: '',
+                urgency: '',
+                termsAndConditions: false
+            },
+            fieldErrors: {
+                newItem: undefined,
+                email: undefined,
+                urgency: undefined,
+                termsAndConditions: undefined
+            },
+            items: []
             }
+        },
+        computed: {
+           //[fsvue]2.4 computed properties for eval input length and ddbox selection.
+           isNewItemInputLimitExceeded() {
+                return this.fields.newItem.length >= 20;
+                },
+                isNotUrgent() {
+                return this.fields.urgency === 'Nonessential';
+                }
         },
         methods: {
             submitForm() {
@@ -190,13 +267,39 @@
             },
             submitFormFSVUE(evt) {
                 evt.preventDefault();
-                //1. demo refs
-                // console.log(this.$refs.newItem.value);
-                console.log(this.newItem);
-                this.items.push(this.newItem);
-                this.newItem =  '';
-            }
 
+                // if fieldErrors has length, errors. return, kick out
+                this.fieldErrors = this.validateForm(this.fields);
+                if (Object.keys(this.fieldErrors).length) return;
+
+                // ...else keep going and push
+                console.log(this.fields.newItem);
+                this.items.push(this.fields.newItem);
+                this.newItem =  '';this.items.push(this.fields.newItem);
+                this.fields.newItem = '';
+                this.fields.email = '';
+                this.fields.urgency = '';
+                this.fields.termsAndConditions = false;
+            },
+            validateForm(fields) {
+                const errors = {};
+                if (!fields.newItem) errors.newItem = "New Item Required";
+                if (!fields.email) errors.email = "Email Required";
+                if (!fields.urgency) errors.urgency = "Urgency Required";
+                if (!fields.termsAndConditions) {
+                    errors.termsAndConditions = "Terms and conditions have to be approved";
+                }
+
+                if (fields.email && !this.isEmail(fields.email)) {
+                    errors.email = "Invalid Email";
+                }
+
+                return errors;
+            },
+            isEmail(email) {
+                const re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            }
         },
     }
 </script>
