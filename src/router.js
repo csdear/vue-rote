@@ -35,5 +35,11 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/Forms.vue")
     },
+    {
+      path: "/Speech",
+      name: "speech",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Speech.vue")
+    },
   ]
 });

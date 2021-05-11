@@ -5,7 +5,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/blah">Blah</router-link> |
-      <router-link to="/forms">Forms</router-link>
+      <router-link to="/forms">Forms</router-link> |
+      <router-link to="/speech">Speech</router-link>
     </div>
     <router-view />
   </div>
