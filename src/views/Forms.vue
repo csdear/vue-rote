@@ -105,7 +105,52 @@
       <button>Submit</button>
     </div>
          </form>
+    <hr>
+    <div>
+        <h2>Btns, one handler, evt.target</h2>
+                <button @click="onButtonClick"
+                    name="button-hoodie"
+                    value="fullstack-hoodie"
+                    class="ui button">Hoodie</button>
+                <button @click="onButtonClick"
+                    name="button-tee"
+                    value="fullstack-tee"
+                    class="ui button">Tee</button>
+                <button @click="onButtonClick"
+                    name="button-fitted-cap"
+                    value="fullstack-fitted-cap"
+                    class="ui button">Fitted Cap</button>
+                <button @click="onButtonClick"
+                    name="button-jacket"
+                    value="fullstack-jacket"
+                    class="ui button">Jacket</button>
+        </div>
+    <hr>
+    <h2 class="ui header">Fullstack CLothing inquery sheet</h2>
+    <div class="input-form">
+        <form @submit="submitFormFSVUE" class="ui form">
+            <div class="field">
+                <!-- 1. only to demonstrate a ref bound to an input element -->
+                <!-- <input ref="newItem" type="text" placeholder="Add an Item"> -->
+                <input v-model="newItem" type="text" placeholder="Add an Item">
+            </div>
+            <button class="ui button">Submit</button>
+        </form>
+        <div class="container bg-dark text-white p-3 m-3">
+            <h4>Items</h4>
+                <ul>
+                    <!--bullshit error -->
+                    <!--<li v-for="item in items" class="item">{{ item }}</li> -->
+                    <li v-for="(item, index) in items" :key="index" class="item">{{ item }}</li>
+                </ul>
+        </div>
     </div>
+
+    </div>
+
+
+
+
 </template>
 
 <script>
@@ -124,13 +169,34 @@
                 skillSet: [],
                 yearsOfExperience: '',
                 age: null,
-            },
+                },
+              newItem: '',
+              items: []
             }
         },
         methods: {
             submitForm() {
-      console.log('form values', this.formValues)
-    },
+            console.log('form values', this.formValues)
+            },
+            handleClick: function(value) {
+            alert(value)
+            },
+            handleClickEvent: function(event) {
+            console.log(event)
+            },
+            onButtonClick(evt) {
+            const button = evt.target;  // <-- EVT TARGET.
+            console.log(`The user clicked ${button.name}: ${button.value}`);
+            },
+            submitFormFSVUE(evt) {
+                evt.preventDefault();
+                //1. demo refs
+                // console.log(this.$refs.newItem.value);
+                console.log(this.newItem);
+                this.items.push(this.newItem);
+                this.newItem =  '';
+            }
+
         },
     }
 </script>

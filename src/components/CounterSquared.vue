@@ -1,0 +1,21 @@
+<template>
+    <!--13.1[mawd] GETTER to square value from state.-->
+    <div class="counter-squared">
+      {{ $store.state.counter }}
+      <sup>2</sup> =
+      <!-- xxx -->
+      <!--13.3[mawd] Call our getter-->
+      <!--15.1[mawd] moved this to a child component -->
+      {{ $store.getters.counterSquared }}
+      </div>
+</template>
+
+<script>
+    export default {
+
+    }
+</script>
+
+<style scoped>
+
+</style>

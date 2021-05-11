@@ -4,21 +4,11 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <b-button variant="success">Hello Bootstrap-vue</b-button>
 
-    <!--MAWD vuex tutorial-->
-    <!--1.[mawd] create a counter and buttons-->
-    <!--2,[mawd] refactored to bring in counter data prop <div class="counter">0</div> -->
-    <!--6.[mawd] <div class="counter">{{ counter }}</div> Now, we are accessing counter directly from state -->
-    <div class="counter">{{ $store.state.counter }}</div>
-    <div class="buttons">
-      <!--4.counter method click handlers -->
-        <!-- <b-button @click="decreaseCounter" variant="success">-</b-button>
-        <b-button @click="increaseCounter" variant="success">+</b-button> -->
-      <!--8.[mawd] update button click handlers to commit to state mutations. -->
-        <!-- <b-button @click="$store.commit('decreaseCounter')" variant="success">-</b-button>
-        <b-button @click="$store.commit('increaseCounter')" variant="success">+</b-button> -->
-      <!--10.[mawd] Dispatch TestDispatch method instead of commit method. Test, will console.log if it hits action. (actions) . -->
-      <b-button @click="$store.dispatch('increaseCounter')" variant="success">+</b-button>
-    </div>
+    <counter />
+    <counter-squared />
+    <counter-buttons />
+    <color-code />
+
 
     <!--child component with prop-->
     <HelloWorld msg="I am the msg prop passed from parent home.vue <br> to child HelloWorld." />
@@ -30,6 +20,9 @@
 //Bringing in a external component
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
+// <!--15.2[mawd] not using imports, using required instead so these are no longer needed
+// import CounterSquared from '../components/CounterSquared.vue';
+// import ColorCode from '../components/ColorCode.vue';
 
 // how to bring in a external javascript file
 // on page load, this fires a script, hey.js, which contains a ssimple alert.
@@ -61,10 +54,16 @@ export default {
   },
   name: "home",
   components: {
-    HelloWorld
+    // <!--15.2[mawd] require the child components
+    HelloWorld,
+    'counter': require('@/components/Counter.vue').default,
+    'counter-squared': require('@/components/CounterSquared.vue').default,
+    'counter-buttons': require('@/components/CounterButtons.vue').default,
+    'color-code': require('@/components/ColorCode.vue').default
   }
 };
-</script>
+</script
+    ColorCode>
 
 <style scoped>
 /* 2. [mawd] counter/button styles */
