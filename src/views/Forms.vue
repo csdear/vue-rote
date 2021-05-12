@@ -192,7 +192,29 @@
         </div>
         <!--[fsvue]2.3 prevent submit on error, set button disabled prop tor return
         value of our computed values -->
-        <button :disabled="isNewItemInputLimitExceeded || isNotUrgent"
+        <!--Comment out for [async-persistence] demo. -->
+        <!-- <button :disabled="isNewItemInputLimitExceeded || isNotUrgent"
+          class="ui button">
+          Submit
+        </button> -->
+
+        <!--5. [async-persistence] p246. Update the button UI to reflect saving and loading status -->
+        <button v-if="saveStatus === 'SAVING'"
+          disabled class="ui button">
+          Saving...
+        </button>
+        <button v-if="saveStatus === 'SUCCESS'"
+          :disabled="isNewItemInputLimitExceeded || isNotUrgent"
+          class="ui button">
+          Saved! Submit another
+        </button>
+        <button v-if="saveStatus === 'ERROR'"
+          :disabled="isNewItemInputLimitExceeded || isNotUrgent"
+          class="ui button">
+          Save Failed - Retry?
+        </button>
+        <button v-if="saveStatus === 'READY'"
+          :disabled="isNewItemInputLimitExceeded || isNotUrgent"
           class="ui button">
           Submit
         </button>
@@ -200,6 +222,7 @@
       <div class="ui segment">
         <h4 class="ui header">Items</h4>
         <ul>
+          <div v-if="loading" class="ui active inline loader"></div>
           <li v-for="(item, index) in items" :key="index" class="item">{{ item }}</li>
         </ul>
       </div>
@@ -239,7 +262,10 @@
                 urgency: undefined,
                 termsAndConditions: undefined
             },
-            items: []
+            items: [],
+            //1. [async-persistence]
+            loading: false,
+            saveStatus: 'READY'
             }
         },
         computed: {
@@ -250,6 +276,14 @@
                 isNotUrgent() {
                 return this.fields.urgency === 'Nonessential';
                 }
+        },
+        created() {
+            //2. [async-persistence]
+            this.loading = true,
+            apiClient.loadItems().then((items) => {
+            this.items = items;
+            this.loading = false;
+            });
         },
         methods: {
             submitForm() {
@@ -273,13 +307,33 @@
                 if (Object.keys(this.fieldErrors).length) return;
 
                 // ...else keep going and push
-                console.log(this.fields.newItem);
-                this.items.push(this.fields.newItem);
-                this.newItem =  '';this.items.push(this.fields.newItem);
-                this.fields.newItem = '';
-                this.fields.email = '';
-                this.fields.urgency = '';
-                this.fields.termsAndConditions = false;
+                // commented out for the async-persistence FSVUE demo.
+                // console.log(this.fields.newItem);
+                // this.items.push(this.fields.newItem);
+                // this.newItem =  '';this.items.push(this.fields.newItem);
+                // this.fields.newItem = '';
+                // this.fields.email = '';
+                // this.fields.urgency = '';
+                // this.fields.termsAndConditions = false;
+
+                //4. [async-persistence]
+                const items = [...this.items, this.fields.newItem];
+
+                this.saveStatus = 'SAVING';
+                apiClient.saveItems(items)
+                    .then(() => {
+                        this.items = items;
+                        this.fields.newItem = '';
+                        this.fields.email = '';
+                        this.fields.urgency = '';
+                        this.fields.termsAndConditions = false;
+                        this.saveStatus = 'SUCCESS';
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.saveStatus = 'ERROR';
+                    });
+
             },
             validateForm(fields) {
                 const errors = {};
@@ -302,6 +356,33 @@
             }
         },
     }
+    //3. [async-persistence]
+    let apiClient = {
+        loadItems: function () {
+            return {
+            then: function (cb) {
+                setTimeout(() => {
+                cb(JSON.parse(localStorage.items || '[]'));
+                }, 1000);
+            },
+            };
+        },
+
+        saveItems: function (items) {
+            const success = !!(this.count++ % 2);
+
+            return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (!success) return reject({ success });
+
+                localStorage.items = JSON.stringify(items);
+                return resolve({ success });
+            }, 1000);
+            });
+        },
+
+        count: 1,
+        }
 </script>
 
 <style scoped>

@@ -72,25 +72,7 @@
       <p><b-button><a @click="handleClickEvent($event)">Click me $event</a></b-button></p>
   </div>
 
-  <div>
-  <h2>Btns, one handler, evt.target</h2>
-          <button @click="onButtonClick"
-            name="button-hoodie"
-            value="fullstack-hoodie"
-            class="ui button">Hoodie</button>
-          <button @click="onButtonClick"
-            name="button-tee"
-            value="fullstack-tee"
-            class="ui button">Tee</button>
-          <button @click="onButtonClick"
-            name="button-fitted-cap"
-            value="fullstack-fitted-cap"
-            class="ui button">Fitted Cap</button>
-          <button @click="onButtonClick"
-            name="button-jacket"
-            value="fullstack-jacket"
-            class="ui button">Jacket</button>
-        </div>
+
 
 
   <h1>Watchers</h1>
