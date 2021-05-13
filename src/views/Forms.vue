@@ -127,6 +127,7 @@
         </div>
     <hr>
     <h2 class="ui header">Fullstack CLothing inquery sheet</h2>
+    <sub>validations, localStorage</sub>
     <!-- devo input field to list only.
     <!-- <div class="input-form">
         <form @submit="submitFormFSVUE" class="ui form">
