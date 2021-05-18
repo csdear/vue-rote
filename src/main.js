@@ -2,7 +2,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store/index";
+import store from "./store/index"; //[modules_refactor6]
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue';
 import animate from 'animate.css';
 

@@ -6,13 +6,17 @@
       <!-- xxx -->
       <!--13.3[mawd] Call our getter-->
       <!--15.1[mawd] moved this to a child component -->
-      {{ $store.getters.counterSquared }}
+      {{ $store.counter.getters.counterSquared }}
       </div>
 </template>
 
 <script>
     export default {
-
+        data() {
+            return {
+                counterSquared: ''
+            }
+        },
     }
 </script>
 

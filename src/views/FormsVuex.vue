@@ -12,7 +12,7 @@ vbase
     export default {
         data() {
             return {
-                key: value
+                // key: value
             }
         },
         components: {
