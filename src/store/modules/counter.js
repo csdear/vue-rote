@@ -9,7 +9,7 @@ const state = {
     counter: 0,
     //14.2 add colorCode property to state
     colorCode: 'red'
-  };
+  }
 
   const mutations = {
     //METHODS THAT CHANGE DATA IN THE STATE^
@@ -33,7 +33,7 @@ const state = {
       state.colorCode = newValue
 
     }
-  };
+  }
 
   const actions = {
     //Can't change data in the STATE, but can ACCESS data in the state.
@@ -48,14 +48,14 @@ const state = {
         // console.log('axios response :', response)
       //12.2[mawd] commit to mutation increaseCounter. p1: mutation name. p2: payload
       commit('increaseCounter', response.data)
-      })
+      });
     },
     decreaseCounter({ commit }) {
       console.log('decreaseCounter (action)');
       //11.[mawd] make axios call to random api
       axios('https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain&rnd=new').then(response => {
       commit('decreaseCounter', response.data)
-      })
+      });
     },
     //14.11[mawd] good practice to have a matching set of actions and mutations. p1: commit access to mutation. p2: payload
     setColorCode({ commit }, newValue) {
@@ -67,18 +67,32 @@ const state = {
     //ALLOWS US TO GET DATA FROM STATE. CAN JUST GET DATA FROM STATE, BUT
     // GETTERS ALLOW US TO FILTER OR CHANGE DATA BEFORE IT IS GIVEN TO OUR
     //COMPONENTS.
+
     // 13.2 counter squared getter. access state. Getters just need to return something.
-    counterSquared(state) {
-      return state.counter * state.counter //square the state.counter
-    },
+    // counterSquared(state) {
+    //   return state.counter * state.counter //square the state.counter
+    // },
+
+    counterSquared: state => {
+        return state.counter * state.counter;
+    }
   };
 
-  export default {
-    namespaced: true,
+//   export default {
+//     namespaced: true,
+//     state,
+//     getters,
+//     actions,
+//     mutations,
+//   };
+
+  const counterModule = {
     state,
-    getters,
-    actions,
     mutations,
-  };
+    actions,
+    getters
+  }
+
+  export default counterModule;
 
 
