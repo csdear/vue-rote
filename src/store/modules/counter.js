@@ -78,21 +78,21 @@ const state = {
     }
   };
 
-//   export default {
-//     namespaced: true,
-//     state,
-//     getters,
-//     actions,
-//     mutations,
-//   };
-
-  const counterModule = {
+  export default {
+    // namespaced: true,
     state,
-    mutations,
+    getters,
     actions,
-    getters
-  }
+    mutations,
+  };
 
-  export default counterModule;
+//   const counterModule = {
+//     state,
+//     mutations,
+//     actions,
+//     getters
+//   }
+
+//   export default counterModule;
 
 

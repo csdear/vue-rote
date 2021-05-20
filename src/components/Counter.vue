@@ -7,10 +7,11 @@
     <!-- <div class="counter">{{ $store.state.counter }}</div> -->
     <!--14.3[mawd] dynamically bind state colorCode to the style attribute -->
     <!--15.1[mawd] moved this to a child component -->
-    <div :style="{ color: $store.state.colorCode }" colorclass="counter">{{ $store.state.counter }}</div>
+    <div :style="{ color: $store.state.counter.colorCode }" colorclass="counter">{{ $store.state.counter.counter }}</div>
 </template>
 
 <script>
+
     export default {
 
     }

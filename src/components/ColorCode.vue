@@ -17,7 +17,8 @@
         computed: {
             colorCode: {
             get() { //14.7[mawd] get colorCode property from state
-                return this.$store.state.colorCode
+                console.log(`at get() : ${this.$store.state.counter.colorCode}`)
+                return this.$store.state.counter.colorCode
             },
             set(newValue) { //14.8[mawd] send a new value to state mutation as a payload.
                 console.log('you are setting the input field');

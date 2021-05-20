@@ -1,7 +1,7 @@
 <template>
     <!--13.1[mawd] GETTER to square value from state.-->
-    <div class="counter-squared">
-      {{ $store.state.counter }}
+    <div class="counter-squared" :style="{ color: $store.state.counter.colorCode }">
+      {{ $store.state.counter.counter }}
       <sup>2</sup> =
       <!-- xxx -->
       <!--13.3[mawd] Call our getter-->
