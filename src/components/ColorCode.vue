@@ -27,7 +27,7 @@
                 //This direct commit to mutation. Better practice is to instead dispatch to action we'll see later.
                 // this.$store.commit('setColorCode', newValue);
                 //14.12[mawd] dispatch to action instead.
-                this.$store.dispatch('setColorCode', newValue);
+                this.$store.dispatch('counter/setColorCode', newValue);
             }
             }
   },

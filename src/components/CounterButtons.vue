@@ -9,8 +9,8 @@
       <!--10.[mawd] Dispatch TestDispatch method instead of commit method. Test, will console.log if it hits action. (actions) . -->
       <!--12.[mawd] DISPATCH TO ACTION-->
       <!--15.1[mawd] moved this to a child component -->
-      <b-button @click="$store.dispatch('increaseCounter')" variant="success">+</b-button>
-      <b-button @click="$store.dispatch('decreaseCounter')" variant="success">-</b-button>
+      <b-button @click="$store.dispatch('counter/increaseCounter')" variant="success">+</b-button>
+      <b-button @click="$store.dispatch('counter/decreaseCounter')" variant="success">-</b-button>
     </div>
 </template>
 
