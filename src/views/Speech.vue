@@ -15,6 +15,20 @@
 
 <script>
     export default {
+       data() {
+          return {
+             textLines: [
+                { string: "hey", speed: 20}, 
+                { string: "Whats up", speed: 20}
+             ],
+             speeds: {
+               pause: 500,
+               slow: 120,
+               normal: 70,
+               fast: 40
+               }
+          }
+       },
         
     }
 </script>
