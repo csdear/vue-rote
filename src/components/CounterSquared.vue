@@ -14,11 +14,12 @@
 <script>
 // import { mapGetters } from 'vuex';
 import {mapGetters} from 'vuex';
+import Vuex from "vuex"; // the getter required vuex, so had to bring it in here.
 
  export default {
         // data() {
         //     return {
-        //         counterSquared: ''
+        //         counterSquared: $store.counter.getters.counterSquared
         //     }
         // },
         // computed: mapGetters(["counterSquared"]),
@@ -33,9 +34,22 @@ import {mapGetters} from 'vuex';
         //     }
         // },
 
+        // 1.[ugcs] unknown getter counterSquared (ugcs) issue.
+        // computed: {
+        //     ...mapGetters(['counter', ['counterSquared']])
+        // },
+
+
+        //2.[ugcs] format used in inputform will work.
+        // computed: Vuex.mapGetters({
+        //     counterSquared: 'counter/counterSquared'
+        // }),
+
+        //3,[ugcs] or format used when mapGetters import is destructured.
         computed: {
-            ...mapGetters(['counterSquared'])
+            ...mapGetters({counterSquared: 'counter/counterSquared'})
         },
+
 
         // methods: {
         //     getCounterSquared() {

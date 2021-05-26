@@ -31,6 +31,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 //could also do it like this
   //var myScript = require('@/components/hey.js');
 
+
 export default {
   //inline JS with data()
   data() {
@@ -52,6 +53,9 @@ export default {
     //   this.counter--
     // }
   },
+  created () {
+    console.log('home created()');
+  },
   name: "home",
   components: {
     // <!--15.2[mawd] require the child components
@@ -62,8 +66,7 @@ export default {
     'color-code': require('@/components/ColorCode.vue').default
   }
 };
-</script
-    ColorCode>
+</script>
 
 <style scoped>
 /* 2. [mawd] counter/button styles */

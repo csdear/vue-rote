@@ -74,6 +74,7 @@ const state = {
     // },
 
     counterSquared: state => {
+        console.log('counterSquared hit ')
         return state.counter * state.counter;
     }
   };
