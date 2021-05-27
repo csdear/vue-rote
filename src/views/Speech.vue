@@ -18,8 +18,9 @@
        data() {
           return {
              textLines: [
-                { string: "hey", speed: 20}, 
-                { string: "Whats up", speed: 20}
+                { string: "hey", speed: speeds.normal}, 
+                { string: "Whats up", speed: speeds.normal},
+                { string: "how are you today?", speed: speeds.fast},
              ],
              speeds: {
                pause: 500,
