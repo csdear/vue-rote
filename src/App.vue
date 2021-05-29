@@ -7,7 +7,8 @@
       <router-link to="/blah">Blah</router-link> |
       <router-link to="/forms">Forms</router-link> |
       <router-link to="/formsVuex">Forms Vuex</router-link> | <!-- the to attribute value corres to router.js name value-->
-      <router-link to="/speech">Speech</router-link>
+      <router-link to="/speech">Speech</router-link> |
+      <router-link to="/testing">Testing</router-link>
     </div>
     <router-view />
   </div>

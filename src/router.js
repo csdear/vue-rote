@@ -47,5 +47,11 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/FormsVuex.vue")
     },
+    {
+      path: "/testing",
+      name: "testing",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Testing.vue")
+    },
   ]
 });
