@@ -21,3 +21,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
+
+// console.log(`DATA : ${JSON.stringify(vm.$data)}`) vm instance properties and methods
