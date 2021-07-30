@@ -53,5 +53,17 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/Testing.vue")
     },
+    {
+      path: "/components",
+      name: "components",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Components.vue")
+    },
+    {
+      path: "/slots",
+      name: "slots",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/Slots.vue")
+    },
   ]
 });

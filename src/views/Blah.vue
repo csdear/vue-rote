@@ -96,8 +96,53 @@
     </ol>
   </div>
   <hr>
+  <h2>v-if/v-else on divs - conditionally rendered groups</h2>
+    <div v-if="Math.random() > 0.5">
+        Now you see me
+      </div>
+      <div v-else>
+        Now you don't
+      </div>
+  <h2>v-if/v-else on template - conditionally rendered groups</h2>
+      <template v-if="ok">
+              <h1>Title</h1>
+              <p>Paragraph 1</p>
+              <p>Paragraph 2</p>
+      </template>
+  <h2>v-else-if</h2>
+  <div v-if="type === 'A'">
+    A
+  </div>
+  <div v-else-if="type === 'B'">
+    B
+  </div>
+  <div v-else-if="type === 'C'">
+    C
+  </div>
+  <div v-else>
+    Not A/B/C
+  </div>
+  <hr>
+  <div>
+  <h4>Filtered/Sorted Array...computed</h4>
+  <li v-for="(n, index) in evenNumbers" :key="index">{{ n }}</li>
+  </div>
+  <hr>
+  <!-- <div> Couldnt get this to work.
+  <h4>Filtered/Sorted Array...method</h4>
+  <ul v-for="(set, index) in sets" :key="index">
+    <li v-for="n, index in even" :key="index">{{ n }}</li>
+    </ul>
+  </div> -->
+  <div id="example-1">
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{ counter }} times.</p>
+</div>
 
-
+<div id="example-2">
+  <!-- `greet` is the name of a method defined below -->
+  <button v-on:click="greet">Greet</button>
+</div>
 
 </div>
 
@@ -109,8 +154,10 @@
 <script>
 //bringing in external scripts
 import heyScript from "@/components/hey.js";
-
 import HolaMundo from "@/components/HolaMundo.vue";
+import Vue from "vue";
+
+
 
 export default {
   data () {
@@ -126,13 +173,29 @@ export default {
         { id: 2, title: 'Do something else' }
       ],
       items: [1, 2, 3],
-      showElement: true
+      showElement: true,
+      ok: true,
+      type: 'B',
+      numbers: [ 1, 2, 3, 4, 5 ],
+      // sets: [[ 1, 2, 3, 4, 5 ], [6, 7, 8, 9, 10]]
+      counter: 0
+
     }
   },
   computed: {
     count: function() {
         return 'The count is ' + this.items.length * 10
-    }
+    },
+    evenNumbers () {
+      return this.numbers.filter(function (number) {
+        return number % 2 === 0
+      })
+    },
+    // even(numbers) {
+    //     return numbers.filter(function (number) {
+    //       return number % 2 === 0
+    //     })
+    //   },
   },
   methods: {
     handleClick: function(value) {
@@ -148,6 +211,14 @@ export default {
       const button = evt.target;  // <-- EVT TARGET.
       console.log(`The user clicked ${button.name}: ${button.value}`);
     },
+    greet: function (event) {
+      // `this` inside methods points to the Vue instance
+      alert('Hello ' + this.name + '!')
+      // `event` is the native DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
   },
   watch: {
     // name: function() {
