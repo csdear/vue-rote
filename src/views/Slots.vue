@@ -9,7 +9,7 @@
     </ChildComponent>
 
     <div class="container">  
-        <BoxComponent> <!--child component instatiated in the parent. named slots image and content. -->
+        <BoxComponent> <!--child component instatiated in the parent. named slots image and content. Also I think 'slot' has been deprecated in favor of 'v-slot' -->
                         <img slot="image" :src="imgUrl" alt="Image">
                         <p slot="content">
                           <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
@@ -27,7 +27,8 @@
     </div>
     <!-- digital ocean. updated v-slot syntax. just slot="SLOT_NAME" is deprecated.<style scoped>
          Slots are a good way to enforce HTML5 structure. Great for a11y. -->
-    <div class="container">
+    <div class="container mt-5">
+          <h1>Named Slots</h1>
           <CoreComponent>
             <template v-slot:main>
               <p>MAIN: Salamanders are a group of amphibians with a lizard-like appearance, including short legs and a tail in both larval and adult forms.</p>
@@ -38,6 +39,25 @@
             </template>
           </CoreComponent>
     </div>
+    <!-- scoped slots digital ocean --> 
+    <div class="container mt-5">
+        <template>
+          <div>
+            <h1>Scoped Slots</h1>
+            <p>This is a parent component.</p>
+            <ChildScopedComponent>
+              <template v-slot="defaultSlotText">
+                <p>{{defaultSlotText.text}}</p>
+              </template>
+              <template v-slot:namedSlot="namedSlotText">
+                <p>{{namedSlotText.text}}</p>
+              </template>
+            </ChildScopedComponent>
+            
+            
+          </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -45,18 +65,24 @@
 import ChildComponent from "../components/ChildComponent.vue";
 import BoxComponent from "../components/BoxComponent.vue";
 import CoreComponent from "../components/CoreComponent.vue";
+import ChildScopedComponent from "../components/ChildScopedComponent.vue";
 
 export default {
   components: {
     ChildComponent,
     BoxComponent,
     CoreComponent,
+    ChildScopedComponent,
   },
   data() {
     return {
       myVariable: `Parent Variable`,
-      imgUrl : 'http://via.placeholder.com/256x256/005dab/ffffff',
+      imgUrl : 'http://via.placeholder.com/256x256/005dab/ffffff', 
     };
+  },
+  created() {
+    console.log('component created.');
+    
   }
 };
 </script>
